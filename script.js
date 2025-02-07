@@ -2,12 +2,16 @@
 const board = document.getElementById("gameboard");
 
 // definere spill variabler
+const gridSize = 20;
 let slange = [{x: 10, y:10}]
+let food =  genererMat();
+
 
 // tegner spillet, slangen og maten
 function tegn() {
     board.innerHTML = "";
     tegnslange();
+    tegnMat();
 }
 
 // tegn slange 
@@ -34,5 +38,21 @@ function setPosition(element, position) {
 }
     
 // tester tegne funksjon
-tegn()
+tegn();
+
+function tegnMat() {
+    const foodElement = createGameElement("div", "food"); 
+    setPosition(foodElement, food);
+    board.appendChild(foodElement);
+}
+
+//funksjon for å generere mat et tilfeldig sted på spill-bordet 
+
+function genererMat() {
+    const x = Math.floor(Math.random() * gridSize) + 1;  
+    const y = Math.floor(Math.random() * gridSize) + 1;  
+    return {x,y };
+}
+
+
 
