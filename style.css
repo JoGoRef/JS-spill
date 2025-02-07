@@ -47,11 +47,10 @@ body, .snake {
 
 #instruksjon{
     position: absolute;
-    top: 60%;
     color: #333;
     width: 300px;
+    margin-top: 30px;
     text-align: center;
-    text-transform: capitalize;
     padding: 30px;
 }
 
@@ -74,5 +73,21 @@ body, .snake {
     color: #d8ddca;
     display: none;
 }
+
+.gameborder3{
+    background-color: #c4cfa3;
+
+}
+
+.snake{
+   border: #5a5a5a 1px dotted;
+}
+
+.food{
+    background-color: #dedede;
+    border: #999 5px solid
+}
+
+
 
 
