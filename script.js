@@ -5,6 +5,9 @@ const board = document.getElementById("gameboard");
 const gridSize = 20;
 let slange = [{x: 10, y:10}]
 let food =  genererMat();
+let direcion = "down"
+let spillInterval; 
+let spillFartDelay = 200;
 
 
 // tegner spillet, slangen og maten
@@ -53,6 +56,51 @@ function genererMat() {
     const y = Math.floor(Math.random() * gridSize) + 1;  
     return {x,y };
 }
+
+//bevege slangen funksjon
+
+function beveg(params) {
+    const hode = {...slange[0]} // en kopi av "slange"
+    switch (direcion) { // for å bevege på grid
+        case "up": // oppover
+            hode.y--;
+            break;
+    
+        case "down":
+            hode.y++;
+            break;
+    
+        case "left":
+            hode.x--;
+            break;
+    
+        case "right":
+            hode.x++;
+            break;
+    
+    }
+    slange.unshift(hode)
+
+    // slange.pop() //gir en illusjon av at slangen beveger seg, 
+                 //, men egentlig legger den til en div foran dit man skal og sletter den forige
+                 // hvis man vil legge til deler på slangen fjerner man bare slange.pop()
+    if (head.x == food.x && head.y == food.y) {
+        mat = genererMat();
+        clearInterval(); //ressetter sånn at vi unngår feilmeldinger
+        spillInterval = setInterval(() => {
+            beveg();
+            tegn();
+        }, spillFartDelay);
+    }
+ 
+}
+
+//test bevegelse
+
+// setInterval(() => {
+//     beveg(); // beveger først
+//     tegn() // derreter tegner den nye posisjon
+// }, 200);
 
 
 
