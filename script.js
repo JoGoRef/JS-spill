@@ -6,7 +6,7 @@ const instruksjonTekst = document.getElementById("instruksjon")
 const gridSize = 20;
 let slange = [{ x: 10, y: 10 }]
 let food = genererMat();
-let direcion = "down"
+let direction = "right"
 let spillInterval;
 let spillFartDelay = 200;
 let spillStartet = false;
@@ -63,7 +63,7 @@ function genererMat() {
 
 function beveg(params) {
     const hode = { ...slange[0] } // en kopi av "slange"
-    switch (direcion) { // for å bevege på grid
+    switch (direction) { // for å bevege på grid
         case "up": // oppover
             hode.y--;
             break;
@@ -111,7 +111,7 @@ function startSpill() {
     instruksjonTekst.style.display = "none";
     spillInterval = setInterval(() => {
         beveg();
-        // sjekk-Kollisjon()
+        sjekk_Kollisjon()
         tegn();
     }, spillFartDelay);
 }
@@ -129,20 +129,48 @@ function tastetrykk(event) {
     } else {
         switch (event.key) {
             case "ArrowUp":
-                direcion = "up"
+                direction = "up"
                 break;
             case "ArrowDown":
-                direcion = "down"
+                direction = "down"
                 break;
             case "ArrowRight":
-                direcion = "right"
+                direction = "right"
                 break;
             case "ArrowLeft":
-                direcion = "left"
+                direction = "left"
                 break;
         }
     } 
 }
 document.addEventListener("keydown", tastetrykk)
+
+function sjekk_Kollisjon() {
+    const hode = slange[0];
+    if ( hode.x < 1 || hode.x > gridSize || hode.y < 1 || hode.y > gridSize) {
+        RestartSpill();
+    }
+
+    for (let i = 1; i < slange.length; i++) {
+        if (hode.x === slange[i].x && hode.y === slange[i].y) {
+            RestartSpill()
+            
+        }
+         // sjekker om selve kroppen til slangen er på samme posisjon som hodet 
+    }
+}
+
+function RestartSpill() {
+    slange = [{x:10, y:10}];
+    food = genererMat();
+    direction = 'right';
+    oppdaterScore()
+}
+
+function oppdaterScore() {
+    const currentScore = slange.length - 1  
+}
+
+
 
 
